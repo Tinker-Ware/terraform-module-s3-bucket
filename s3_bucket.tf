@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "main_domain" {
+resource "aws_s3_bucket" "domain_bucket" {
   bucket        = "${ var.bucket_name }"
   acl           = "public-read"
   policy        = "${file("./modules/s3_bucket/bucket-policy.json")}"
@@ -12,6 +12,10 @@ resource "aws_s3_bucket" "main_domain" {
   versioning {
     enabled = true
   }
+}
+
+output "s3_bucket" {
+  value = "${ aws_s3_bucket.domain_bucket }"
 }
 
 variable "bucket_name" {}
